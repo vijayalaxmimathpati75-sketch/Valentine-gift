@@ -1,0 +1,185 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Be My Valentine? 💕</title>  
+    <style>  
+        * {  
+            margin: 0;  
+            padding: 0;  
+            box-sizing: border-box;  
+        }  
+  
+        body {  
+            font-family: 'Arial', sans-serif;  
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);  
+            min-height: 100vh;  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            padding: 20px;  
+        }  
+  
+        .container {  
+            background: white;  
+            border-radius: 20px;  
+            padding: 40px;  
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);  
+            text-align: center;  
+            max-width: 500px;  
+            width: 100%;  
+        }  
+  
+        .profile-img {  
+            width: 200px;  
+            height: 200px;  
+            border-radius: 50%;  
+            object-fit: cover;  
+            margin-bottom: 20px;  
+            border: 5px solid #ff69b4;  
+        }  
+  
+        h1 {  
+            color: #333;  
+            margin-bottom: 5px;  
+            font-size: 28px;  
+        }  
+  
+        .emojis {  
+            font-size: 30px;  
+            margin-bottom: 5px;  
+        }  
+  
+        .question {  
+            font-size: 24px;  
+            color: #ff1493;  
+            margin: 20px 0;  
+            font-weight: bold;  
+        }  
+  
+        .buttons {  
+            display: flex;  
+            gap: 20px;  
+            justify-content: center;  
+            margin-top: 30px;  
+            position: relative;  
+            min-height: 80px;  
+        }  
+  
+        button {  
+            padding: 15px 40px;  
+            font-size: 18px;  
+            border: none;  
+            border-radius: 30px;  
+            cursor: pointer;  
+            transition: all 0.3s;  
+            font-weight: bold;  
+        }  
+  
+        .yes-btn {  
+            background: #ff69b4;  
+            color: white;  
+        }  
+  
+        .yes-btn:hover {  
+            background: #ff1493;  
+            transform: scale(1.1);  
+        }  
+  
+        .no-btn {  
+            background: #ddd;  
+            color: #666;  
+        }  
+  
+        .no-btn:hover {  
+            background: #ccc;  
+        }  
+  
+        #celebrationGif {  
+    display: none;  
+    width: 300px;  
+    margin: 20px auto 0;  
+}  
+  
+        .thank-you {  
+            display: none;  
+            font-size: 32px;  
+            color: #ff1493;  
+            font-weight: bold;  
+            margin-top: 10px;  
+            animation: fadeIn 0.5s ease-in-out;  
+        }  
+  
+        @keyframes fadeIn {  
+            from { opacity: 0; }  
+            to { opacity: 1; }  
+        }  
+  
+        .hidden {  
+            display: none;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="container">  
+        <img id="profileImg" class="profile-img" src="" alt="Profile Picture">  
+        <h1 id="personName">Loading...</h1>  
+        <p class="question">Will you be my Valentine?</p>  
+          <p class="emojis">💝🥹🥹</p>  
+          
+        <div id="buttonsContainer" class="buttons">  
+            <button class="yes-btn" onclick="sayYes()">Yes! 💕</button>  
+            <button class="no-btn" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>  
+        </div>  
+  
+        <img id="celebrationGif" src="images/celebration.gif" alt="Celebration">  
+        <div class="thank-you" id="thankYou">Thank you! 💖</div>  
+    </div>  
+  
+    <script>  
+        // Get parameters from URL  
+        function getParams() {  
+            const params = new URLSearchParams(window.location.search);  
+            return {  
+                name: params.get('name') || 'Beautiful',  
+                img: params.get('img') || 'default.jpg'  
+            };  
+        }  
+  
+        // Load the custom data  
+        const data = getParams();  
+        document.getElementById('personName').textContent = 'Hi, ' + data.name;  
+        document.getElementById('profileImg').src = 'images/' + data.img;  
+  
+        // Move the No button randomly  
+        function moveButton() {  
+            const noBtn = document.getElementById('noBtn');  
+            const buttons = document.querySelector('.buttons');  
+              
+            noBtn.style.position = 'absolute';  
+              
+            const containerWidth = buttons.offsetWidth;  
+            const containerHeight = buttons.offsetHeight;  
+            const btnWidth = noBtn.offsetWidth;  
+            const btnHeight = noBtn.offsetHeight;  
+              
+            const maxX = containerWidth - btnWidth;  
+            const maxY = containerHeight - btnHeight;  
+              
+            const randomX = Math.floor(Math.random() * maxX);  
+            const randomY = Math.floor(Math.random() * maxY);  
+              
+            noBtn.style.left = randomX + 'px';  
+            noBtn.style.top = randomY + 'px';  
+        }  
+  
+        // When Yes is clicked  
+        function sayYes() {  
+            document.getElementById('buttonsContainer').classList.add('hidden');  
+            document.getElementById('celebrationGif').style.display = 'block';  
+            document.getElementById('thankYou').style.display = 'block';  
+        }  
+    </script>  
+</body>  
+</html>  
